@@ -4,11 +4,11 @@ public class Main {
         Logger logger2 = Logger.getInstance();
 
         if (logger1 == logger2) {
-            System.out.println("Both references point to the same instance.");
+            System.out.println("Same.");
         }
         else
         {
-            System.out.println("Both references point don't to the same instance.");
+            System.out.println("Not Same.");
         }
 
         logger1.log("Hello from Singleton!");
