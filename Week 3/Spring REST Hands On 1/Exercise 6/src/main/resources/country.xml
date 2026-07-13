@@ -20,7 +20,7 @@
         <property name="code" value="JP" />
         <property name="name" value="Japan" />
     </bean>
-    
+
     <bean id="countryList" class="java.util.ArrayList">
         <constructor-arg>
             <list>
