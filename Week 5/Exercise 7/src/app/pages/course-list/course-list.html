@@ -1,0 +1,32 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+  <div style="margin-bottom: 2rem;">
+    <h2>Available Courses</h2>
+    <p style="color: #94a3b8; margin-bottom: 1rem;">Browse and enroll in available course modules. Click any card to view details.</p>
+    
+    <!-- Hands-On 7 Task 1: Query parameter search input updating URL /courses?search=... -->
+    <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search courses by title or code..." style="max-width: 400px;">
+  </div>
+
+  <div *ngIf="isLoading; else courseGrid" class="glass-card loading-container">
+    Loading courses...
+  </div>
+
+  <ng-template #courseGrid>
+    <div *ngIf="courses.length > 0; else noCourses" class="course-grid">
+      <!-- Hands-On 7 Task 1: Navigation to /courses/:id on card click -->
+      <div *ngFor="let c of courses; trackBy: trackByCourseId" (click)="viewCourse(c.id)" style="cursor: pointer;">
+        <app-course-card [course]="c" (enrollRequested)="onEnroll($event)" appHighlight="rgba(59, 130, 246, 0.15)"></app-course-card>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #noCourses>
+    <div class="glass-card loading-container">
+      <p>No courses available.</p>
+    </div>
+  </ng-template>
+
+  <p *ngIf="selectedCourseId" style="margin-top: 1.5rem; color: #10b981; font-weight: 600;">
+    Selected course ID: {{ selectedCourseId }}
+  </p>
+</div>

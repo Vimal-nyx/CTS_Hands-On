@@ -1,0 +1,96 @@
+<div style="max-width: 600px; margin: 2rem auto; padding: 2rem;" class="glass-card">
+  <h2>Template-Driven Enrollment Request</h2>
+  <p style="color: #94a3b8; margin-bottom: 1.5rem;">Template-Driven Form with Validation</p>
+
+  <!-- Hands-On 4 Task 1: #enrollForm="ngForm" and (ngSubmit) -->
+  <form #enrollForm="ngForm" (ngSubmit)="onSubmit(enrollForm)" novalidate>
+    
+    <!-- Student Name -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Student Name *</label>
+      <!-- Hands-On 4 Task 1 & 2: [(ngModel)], name attribute, required, minlength, #nameCtrl="ngModel" -->
+      <input 
+        [(ngModel)]="studentName" 
+        name="studentName" 
+        required 
+        minlength="3" 
+        #nameCtrl="ngModel"
+        placeholder="Enter your full name">
+      <!-- Hands-On 4 Task 2: Displaying Validation Errors -->
+      <div *ngIf="nameCtrl.touched && nameCtrl.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Name is required.
+      </div>
+      <div *ngIf="nameCtrl.touched && nameCtrl.errors?.['minlength']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Name must be at least 3 characters.
+      </div>
+    </div>
+
+    <!-- Student Email -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Student Email *</label>
+      <input 
+        [(ngModel)]="studentEmail" 
+        name="studentEmail" 
+        required 
+        email 
+        #emailCtrl="ngModel"
+        placeholder="student@example.com">
+      <div *ngIf="emailCtrl.touched && emailCtrl.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Email is required.
+      </div>
+      <div *ngIf="emailCtrl.touched && emailCtrl.errors?.['email']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Please enter a valid email address.
+      </div>
+    </div>
+
+    <!-- Course ID -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Course ID *</label>
+      <input 
+        type="number" 
+        [(ngModel)]="courseId" 
+        name="courseId" 
+        required 
+        #courseCtrl="ngModel"
+        placeholder="101">
+      <div *ngIf="courseCtrl.touched && courseCtrl.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Course ID is required.
+      </div>
+    </div>
+
+    <!-- Preferred Semester -->
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Preferred Semester</label>
+      <select [(ngModel)]="preferredSemester" name="preferredSemester">
+        <option value="Odd">Odd Semester</option>
+        <option value="Even">Even Semester</option>
+      </select>
+    </div>
+
+    <!-- Terms Checkbox -->
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+      <input 
+        type="checkbox" 
+        [(ngModel)]="agreeToTerms" 
+        name="agreeToTerms" 
+        required 
+        #termsCtrl="ngModel"
+        style="width: auto;">
+      <label>I agree to terms and conditions *</label>
+    </div>
+
+    <!-- Form Buttons -->
+    <div style="display: flex; gap: 1rem;">
+      <!-- Hands-On 4 Task 1: Submit button [disabled]="enrollForm.invalid" -->
+      <button type="submit" [disabled]="enrollForm.invalid">Submit Application</button>
+
+      <!-- Hands-On 4 Task 2: Reset button calling resetForm() -->
+      <button type="button" (click)="enrollForm.resetForm()" style="background: rgba(255,255,255,0.1);">Reset</button>
+    </div>
+  </form>
+
+  <!-- Hands-On 4 Task 2: Success Message -->
+  <div *ngIf="submitted" style="margin-top: 1.5rem; padding: 1rem; background: rgba(16, 185, 129, 0.2); border: 1px solid #10b981; border-radius: 0.5rem; color: #10b981;">
+    Enrollment request submitted successfully!
+  </div>
+</div>

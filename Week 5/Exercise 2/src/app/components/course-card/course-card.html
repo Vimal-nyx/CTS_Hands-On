@@ -1,0 +1,11 @@
+<!-- Hands-On 2 Task 3: Course Card Component Template -->
+<div class="card glass-card">
+  <!-- Hands-On 2 Task 1: String Interpolation -->
+  <h3 class="card-title">{{ course.name }}</h3>
+  <p class="card-subtitle">Code: {{ course.code }} | Credits: {{ course.credits }}</p>
+  
+  <div class="card-actions">
+    <!-- Hands-On 2 Task 3: Event binding emitting Output event -->
+    <button (click)="enrollRequested.emit(course.id)">Enroll</button>
+  </div>
+</div>

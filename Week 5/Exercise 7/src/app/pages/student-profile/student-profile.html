@@ -1,0 +1,15 @@
+<div>
+  <h2>Student Profile</h2>
+  
+  <h3>Enrolled Courses</h3>
+  <ul>
+    <li *ngFor="let course of enrollmentService.getEnrolledCourses()">
+      {{ course.name }} ({{ course.code }})
+    </li>
+  </ul>
+  
+  <p *ngIf="enrollmentService.getEnrolledCourses().length === 0">No courses enrolled yet.</p>
+  
+  <hr>
+  <app-notification></app-notification>
+</div>

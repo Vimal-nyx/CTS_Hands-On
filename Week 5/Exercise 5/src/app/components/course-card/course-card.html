@@ -1,0 +1,30 @@
+<div class="card" [ngClass]="cardClasses" [ngStyle]="{'border-left': '4px solid ' + (course.gradeStatus === 'passed' ? '#10b981' : course.gradeStatus === 'failed' ? '#ef4444' : '#f59e0b')}">
+  
+  <div style="margin-bottom: 0.75rem;">
+    <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">{{ course.name }}</h3>
+    <p style="color: #94a3b8; font-size: 0.9rem;">
+      Code: {{ course.code }} | {{ course.credits | creditLabel }}
+    </p>
+  </div>
+
+  <div style="margin-bottom: 1rem;" [ngSwitch]="course.gradeStatus">
+    <span *ngSwitchCase="'passed'" class="badge badge-passed">Passed</span>
+    <span *ngSwitchCase="'failed'" class="badge badge-failed">Failed</span>
+    <span *ngSwitchCase="'pending'" class="badge badge-pending">Pending</span>
+  </div>
+
+  <div *ngIf="isExpanded" style="margin-bottom: 1rem; background: rgba(15, 23, 42, 0.6); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.05);">
+    <p style="font-size: 0.85rem; color: #cbd5e1; line-height: 1.4;">
+      Detailed course module syllabus and grading criteria.
+    </p>
+  </div>
+
+  <div style="margin-top: auto; display: flex; gap: 0.5rem; width: 100%;">
+    <button (click)="enrollRequested.emit(course.id)" style="flex: 1;">
+      {{ course.isEnrolled ? 'Unenroll' : 'Enroll' }}
+    </button>
+    <button class="btn-secondary" (click)="toggleDetails()" style="flex: 1;">
+      {{ isExpanded ? 'Hide Details' : 'Show Details' }}
+    </button>
+  </div>
+</div>

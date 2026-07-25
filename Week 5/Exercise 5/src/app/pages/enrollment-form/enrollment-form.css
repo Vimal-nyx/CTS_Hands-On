@@ -1,0 +1,25 @@
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched {
+  border-color: red;
+}
+
+input.ng-valid.ng-touched, select.ng-valid.ng-touched {
+  border-color: green;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.success-message {
+  color: green;
+  padding: 10px;
+  background-color: #e8f5e9;
+  border: 1px solid green;
+  margin-bottom: 15px;
+}
+
+div {
+  margin-bottom: 10px;
+}

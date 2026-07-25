@@ -1,0 +1,68 @@
+<div style="max-width: 650px; margin: 2rem auto; padding: 2rem;" class="glass-card">
+  <h2>Reactive Enrollment Form</h2>
+  <p style="color: #94a3b8; margin-bottom: 1.5rem;">Reactive Forms with FormBuilder, FormArray & Custom Validators</p>
+
+  <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()">
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Student Name *</label>
+      <input formControlName="studentName" placeholder="Enter full name">
+      <div *ngIf="enrollForm.get('studentName')?.touched && enrollForm.get('studentName')?.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Name is required.
+      </div>
+      <div *ngIf="enrollForm.get('studentName')?.touched && enrollForm.get('studentName')?.errors?.['minlength']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Name must be at least 3 characters.
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Student Email *</label>
+      <input formControlName="studentEmail" placeholder="test@example.com">
+      <div *ngIf="enrollForm.get('studentEmail')?.touched && enrollForm.get('studentEmail')?.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Email is required.
+      </div>
+      <div *ngIf="enrollForm.get('studentEmail')?.errors?.['emailTaken']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Email address is already taken (test@...).
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Course Code / ID *</label>
+      <input formControlName="courseId" placeholder="e.g. CS101 (do not start with XX)">
+      <div *ngIf="enrollForm.get('courseId')?.touched && enrollForm.get('courseId')?.errors?.['required']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Course code is required.
+      </div>
+      <div *ngIf="enrollForm.get('courseId')?.errors?.['noCourseCode']" style="color: #ef4444; font-size: 0.85rem; margin-top: 0.25rem;">
+        Course code starting with XX is not allowed.
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.25rem;">
+      <label style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Preferred Semester</label>
+      <select formControlName="preferredSemester">
+        <option value="Odd">Odd Semester</option>
+        <option value="Even">Even Semester</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.05);">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+        <label style="font-weight: 600;">Additional Courses (Dynamic FormArray)</label>
+        <button type="button" (click)="addCourse()" style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">+ Add Another Course</button>
+      </div>
+
+      <div formArrayName="additionalCourses">
+        <div *ngFor="let ctrl of additionalCourses.controls; let i=index" style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+          <input [formControlName]="i" placeholder="Additional Course Code">
+          <button type="button" (click)="removeCourse(i)" style="background: #ef4444; padding: 0.4rem 0.8rem;">Remove</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+      <input type="checkbox" formControlName="agreeToTerms" style="width: auto;">
+      <label>I agree to the terms and conditions *</label>
+    </div>
+
+    <button type="submit" [disabled]="enrollForm.invalid">Submit Application</button>
+  </form>
+</div>

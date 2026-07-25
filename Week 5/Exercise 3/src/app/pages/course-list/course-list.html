@@ -1,0 +1,32 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+  <div style="margin-bottom: 2rem;">
+    <h2>Available Courses</h2>
+    <p style="color: #94a3b8;">Browse and enroll in available course modules.</p>
+  </div>
+
+  <!-- Hands-On 3 Task 1: *ngIf with else template for loading state -->
+  <div *ngIf="isLoading; else courseGrid" class="glass-card loading-container">
+    Loading courses...
+  </div>
+
+  <ng-template #courseGrid>
+    <!-- Hands-On 3 Task 1: *ngIf with else template for empty course list -->
+    <div *ngIf="courses.length > 0; else noCourses" class="course-grid">
+      <!-- Hands-On 3 Task 1: *ngFor with trackBy -->
+      <!-- Hands-On 3 Task 3: Configurable Custom Directive appHighlight='lightblue' -->
+      <div *ngFor="let c of courses; trackBy: trackByCourseId">
+        <app-course-card [course]="c" (enrollRequested)="onEnroll($event)" appHighlight="rgba(59, 130, 246, 0.15)"></app-course-card>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #noCourses>
+    <div class="glass-card loading-container">
+      <p>No courses available.</p>
+    </div>
+  </ng-template>
+
+  <p *ngIf="selectedCourseId" style="margin-top: 1.5rem; color: #10b981; font-weight: 600;">
+    Selected course ID: {{ selectedCourseId }}
+  </p>
+</div>

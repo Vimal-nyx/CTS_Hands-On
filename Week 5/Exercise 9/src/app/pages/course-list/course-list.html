@@ -1,0 +1,29 @@
+<div style="max-width: 1200px; margin: 0 auto; padding: 2rem;">
+  <div style="margin-bottom: 2rem;">
+    <h2>Available Courses (NgRx Store)</h2>
+    <p style="color: #94a3b8; margin-bottom: 1rem;">Browse and enroll in available course modules via NgRx Store & Selectors.</p>
+    
+    <input [(ngModel)]="searchTerm" (input)="onSearch()" placeholder="Search courses..." style="max-width: 400px;">
+  </div>
+
+  <!-- Hands-On 9: NgRx async pipe selection from selectAllCourses -->
+  <div *ngIf="isLoading$ | async; else courseGrid" class="glass-card loading-container">
+    Loading courses from NgRx Store...
+  </div>
+
+  <ng-template #courseGrid>
+    <div *ngIf="courses$ | async as courses">
+      <div *ngIf="courses.length > 0; else noCourses" class="course-grid">
+        <div *ngFor="let c of courses; trackBy: trackByCourseId" (click)="viewCourse(c.id)" style="cursor: pointer;">
+          <app-course-card [course]="c" (enrollRequested)="onEnroll($event)" appHighlight="rgba(59, 130, 246, 0.15)"></app-course-card>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #noCourses>
+    <div class="glass-card loading-container">
+      <p>No courses available in NgRx Store.</p>
+    </div>
+  </ng-template>
+</div>

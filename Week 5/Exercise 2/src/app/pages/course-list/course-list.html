@@ -1,0 +1,15 @@
+<div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+  <h2>Course Listing</h2>
+  <p style="color: #94a3b8; margin-bottom: 1.5rem;">Select a course to enroll</p>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+    <!-- Hands-On 2 Task 3: Render CourseCards with @Input and @Output -->
+    <div *ngFor="let c of courses">
+      <app-course-card [course]="c" (enrollRequested)="onEnroll($event)"></app-course-card>
+    </div>
+  </div>
+
+  <p *ngIf="selectedCourseId" style="margin-top: 1.5rem; color: #10b981; font-weight: 600;">
+    Selected course ID: {{ selectedCourseId }}
+  </p>
+</div>

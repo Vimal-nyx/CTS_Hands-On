@@ -1,0 +1,19 @@
+<div>
+  <h2>Student Profile</h2>
+  
+  <h3>Enrolled Courses</h3>
+  <div *ngIf="enrolledCourses$ | async as courses">
+    <ul *ngIf="courses.length > 0; else noCourses">
+      <li *ngFor="let course of courses">
+        {{ course.code }} - {{ course.name }} ({{ course.credits }} Credits)
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noCourses>
+    <p>No courses enrolled.</p>
+  </ng-template>
+  
+  <hr>
+  <app-notification></app-notification>
+</div>

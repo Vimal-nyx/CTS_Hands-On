@@ -1,0 +1,26 @@
+<div style="max-width: 800px; margin: 2rem auto; padding: 2rem;" class="glass-card">
+  <h2>Student Profile</h2>
+  <p style="color: #94a3b8; margin-bottom: 1.5rem;">Managed via EnrollmentService & CourseService</p>
+  
+  <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Enrolled Courses</h3>
+  <div *ngIf="enrollmentService.getEnrolledCourses().length > 0; else noEnrolled">
+    <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1.5rem;">
+      <div *ngFor="let course of enrollmentService.getEnrolledCourses()" style="background: rgba(15, 23, 42, 0.6); padding: 1rem; border-radius: 0.5rem; border: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <strong style="color: #f8fafc;">{{ course.name }}</strong>
+          <span style="color: #94a3b8; font-size: 0.85rem; margin-left: 0.5rem;">({{ course.code }})</span>
+        </div>
+        <span style="color: #60a5fa; font-weight: 600;">{{ course.credits }} Credits</span>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noEnrolled>
+    <p style="color: #94a3b8; margin-bottom: 1.5rem;">No courses enrolled yet.</p>
+  </ng-template>
+  
+  <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.1); margin: 1.5rem 0;">
+  
+  <!-- Hands-On 6 Task 2: Component-Level Provided Notification Component -->
+  <app-notification></app-notification>
+</div>

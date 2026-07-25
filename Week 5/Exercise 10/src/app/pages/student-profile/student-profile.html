@@ -1,0 +1,20 @@
+<div class="profile-container">
+  <h2>Student Profile</h2>
+  <div class="info">
+    <p><strong>Name:</strong> Jane Doe</p>
+    <p><strong>Major:</strong> Computer Science</p>
+  </div>
+  
+  <h3>Enrolled Courses</h3>
+  <div *ngIf="enrolledCourses$ | async as courses">
+    <ul class="enrolled-list" *ngIf="courses.length > 0; else noCourses">
+      <li *ngFor="let course of courses">
+        {{ course.code }} - {{ course.name }} ({{ course.credits }} Credits)
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noCourses>
+    <p>No courses enrolled.</p>
+  </ng-template>
+</div>
